@@ -1,0 +1,22 @@
+{
+  "$schema": "https://developer.joomla.org/schemas/json-schema/web_assets.json",
+  "name": "com_vkmdb",
+  "version": "4.0.0",
+  "description": "Joomla CMS",
+  "license": "GPL-2.0-or-later",
+  "assets": [
+	{
+      "name": "com_vkmdb.script",
+      "type": "script",
+      "uri": "com_vkmdb/script.js"
+    },
+    {
+      "name": "com_vkmdb.admin-eintraege-modal",
+      "type": "script",
+      "uri": "com_vkmdb/admin-eintraege-modal.js",
+      "attributes": {
+        "type": "module"
+      }
+    }
+  ]
+}

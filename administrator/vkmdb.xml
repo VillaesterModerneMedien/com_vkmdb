@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+	<name>com_vkmdb</name>
+	<author>Mario Hewera</author>
+	<creationDate>March 2025</creationDate>
+	<copyright>Copyright (C) 2025 Mario Hewera. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>mh@villaester.de</authorEmail>
+	<authorUrl>https://villaester.de</authorUrl>
+	<version>1.0.0</version>
+	<description>COM_VKMDB_XML_DESCRIPTION</description>
+    <namespace path="src">VkmdbNamespace\Component\Vkmdb</namespace>
+	
+	<scriptfile>script.php</scriptfile>
+	
+	<install> <!-- Runs on install -->
+		<sql>
+			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+	
+	<uninstall> <!-- Runs on uninstall -->
+		<sql>
+			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+	
+	<update> <!-- Runs on update -->
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<media destination="com_vkmdb" folder="media">
+		<filename>index.html</filename>
+        <filename>joomla.asset.json</filename>
+		<folder>css</folder>
+        <folder>images</folder>
+		<folder>js</folder>
+		<folder>scss</folder>
+	</media>
+
+	<files folder="site">
+		<folder>forms</folder>
+        <folder>helpers</folder>
+		<folder>layouts</folder>
+		<folder>src</folder>
+		<folder>tmpl</folder>
+	</files>
+	
+	<languages folder="site/language">
+		
+			<language tag="de-DE">de-DE/com_vkmdb.ini</language>
+		
+			<language tag="en-GB">en-GB/com_vkmdb.ini</language>
+		
+	</languages>
+ 
+	<administration>
+        <menu img="class:comment">
+			COM_VKMDB			<params>
+				<dashboard>vkmdb</dashboard>
+			</params>
+		</menu>
+		<submenu>
+			<menu view="eintraege">
+                COM_VKMDB_SUBMENU_EINTRAEGE
+                <params>
+					<menu-quicktask-title>COM_VKMDB_SUBMENU_NEW_EINTRAG</menu-quicktask-title>
+					<menu-quicktask>index.php?option=com_vkmdb&amp;task=eintrag.add</menu-quicktask>
+				</params>
+            </menu>
+            
+			<menu link="option=com_categories&amp;view=categories&amp;extension=com_vkmdb">
+				JCATEGORY
+                <params>
+					<menu-quicktask>index.php?option=com_categories&amp;extension=com_vkmdb&amp;task=category.add</menu-quicktask>
+					<menu-quicktask-title>COM_VKMDB_SUBMENU_ADD_EINTRAEGE_CATEGORY</menu-quicktask-title>
+				</params>
+			</menu>
+		</submenu>
+        
+		<files folder="administrator">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>vkmdb.xml</filename>	
+
+			<filename>script.php</filename>
+            <folder>presets</folder>
+			<folder>sql</folder>
+            <folder>forms</folder>
+            <folder>services</folder>
+			<folder>src</folder>
+			<folder>tmpl</folder>
+			<folder>misc</folder>
+		</files>
+		
+		<languages folder="administrator/language">
+			
+			<language tag="de-DE">de-DE/com_vkmdb.ini</language>
+			<language tag="de-DE">de-DE/com_vkmdb.sys.ini</language>
+		
+			<language tag="en-GB">en-GB/com_vkmdb.ini</language>
+			<language tag="en-GB">en-GB/com_vkmdb.sys.ini</language>
+					
+		</languages>
+	</administration>
+    <dashboards>
+		<dashboard title="COM_VKMDB_DASHBOARD_TITLE" icon="icon-file-alt">vkmdb</dashboard>
+	</dashboards>
+    
+	<updateservers>
+		<server type="extension" priority="1" name="vkmdb Updates">https://YOUR-UPDATE-URL.COM/com_vkmdb/extension.xml</server>
+	</updateservers>
+    
+</extension>

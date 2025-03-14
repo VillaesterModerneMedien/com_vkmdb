@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <inlinehelp button="show"/>
+	<fieldset
+		name="component"
+		label="COM_VKMDB_CONFIG_SETTINGS_LABEL"
+	>
+		<field name="com_vkmdb_note"
+		type="note" 
+		label="COM_VKMDB_CONFIG_SETTINGS_NOTE"
+		/>
+	</fieldset>
+    
+    <fieldset
+		name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC"
+		>
+		<field
+			name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			validate="rules"
+			filter="rules"
+			component="com_vkmdb"
+			section="component"
+		/>
+	</fieldset>
+</config>
