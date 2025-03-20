@@ -17,11 +17,11 @@ use Joomla\CMS\Versioning\VersionableControllerTrait;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Controller for a single Eintrag
+ * Controller for a single Item
  *
  * @since  1.0.0
  */
-class EintragController extends FormController
+class ItemController extends FormController
 {
 	use VersionableControllerTrait;
 	
@@ -31,5 +31,5 @@ class EintragController extends FormController
 	 * @var    string
 	 * @since  1.6
 	 */
-	protected $text_prefix = 'COM_VKMDB_EINTRAG';
+	protected $text_prefix = 'COM_VKMDB_ITEM';
 }

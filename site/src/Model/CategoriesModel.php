@@ -18,7 +18,7 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Registry\Registry;
 
 /**
- * This models supports retrieving lists of eintrag categories.
+ * This models supports retrieving lists of item categories.
  *
  * @since  1.0.0
  */

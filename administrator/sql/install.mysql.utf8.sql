@@ -1,14 +1,14 @@
 --
--- Table structure for table `#__vkmdb_eintraege`
+-- Table structure for table `#__vkmdb_items`
 --
-CREATE TABLE if not exists `#__vkmdb_eintraege` (
+CREATE TABLE if not exists `#__vkmdb_items` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `alias` varchar(400) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `content` mediumtext COLLATE utf8mb4_unicode_ci,
-  `eintragfield1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `eintragfield2` int(11) NOT NULL DEFAULT '0',
-  `eintragfield3` tinyint(4) NOT NULL DEFAULT '0',
+  `itemfield1` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `itemfield2` int(11) NOT NULL DEFAULT '0',
+  `itemfield3` tinyint(4) NOT NULL DEFAULT '0',
   `published` tinyint(4) NOT NULL DEFAULT '0',
   `featured` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `created` datetime NOT NULL,

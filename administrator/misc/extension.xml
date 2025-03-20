@@ -1,7 +1,7 @@
 <updates>
 	<update>
-		<name>VKM-DB Ninox API</name>
-		<description>Verbiundet Joomla mit der Ninox API</description>
+		<name>VKM Database Ninox</name>
+		<description>Meine Extension</description>
 		<element>com_vkmdb</element>
 		<type>component</type>
 		<client>both</client>

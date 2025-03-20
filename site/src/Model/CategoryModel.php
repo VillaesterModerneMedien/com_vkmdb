@@ -23,7 +23,7 @@ use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
 
 /**
- * Single item model for a eintrag
+ * Single item model for a item
  *
  * @package     Joomla.Site
  * @subpackage  com_vkmdb * @since       1.0.0
@@ -38,7 +38,7 @@ class CategoryModel extends ListModel
 	protected $_item = null;
 
 	/**
-	 * Array of eintraege in the category
+	 * Array of items in the category
 	 *
 	 * @var    \stdClass[]
 	 */
@@ -73,7 +73,7 @@ class CategoryModel extends ListModel
 	protected $_category = null;
 
 	/**
-	 * The list of other eintrag categories.
+	 * The list of other item categories.
 	 *
 	 * @var    array
 	 */
@@ -144,7 +144,7 @@ class CategoryModel extends ListModel
 		$query->select($this->getState('list.select', 'a.*'))
 			->select($this->getSlugColumn($query, 'a.id', 'a.alias') . ' AS slug')
 			->select($this->getSlugColumn($query, 'c.id', 'c.alias') . ' AS catslug')
-			->from($db->quoteName('#__vkmdb_eintraege', 'a'))
+			->from($db->quoteName('#__vkmdb_items', 'a'))
 			->leftJoin($db->quoteName('#__categories', 'c') . ' ON c.id = a.catid');
 
 		// Filter by category.
@@ -206,15 +206,15 @@ class CategoryModel extends ListModel
 		// List state information
 		$format = $app->input->getWord('format');
 
-		$numberOfEintraegeToDisplay = $mergedParams->get('eintraege_display_num');
+		$numberOfItemsToDisplay = $mergedParams->get('items_display_num');
 
 		if ($format === 'feed')
 		{
 			$limit = $app->get('feed_limit');
 		}
-		elseif (isset($numberOfEintraegeToDisplay))
+		elseif (isset($numberOfItemsToDisplay))
 		{
-			$limit = $numberOfEintraegeToDisplay;
+			$limit = $numberOfItemsToDisplay;
 		}
 		else
 		{

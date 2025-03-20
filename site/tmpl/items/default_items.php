@@ -22,12 +22,12 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
 <div class="com-vkmdb-list__items">
 	<?php if (empty($this->items)) : ?>
-		<p class="com-vkmdb-items__message"> <?php echo Text::_('COM_VKMDB_NO_EINTRAEGE'); ?>	 </p>
+		<p class="com-vkmdb-items__message"> <?php echo Text::_('COM_VKMDB_NO_ITEMS'); ?>	 </p>
 	<?php else : ?>
 
         <?php foreach ($this->items as $i => $item) : ?>
             <p>
-                <a href="<?php echo Route::_(RouteHelper::getEintragRoute($item->slug, $item->catid)); ?>">
+                <a href="<?php echo Route::_(RouteHelper::getItemRoute($item->slug, $item->catid)); ?>">
                     <?php echo $item->title; ?>
                 </a>
             </p>

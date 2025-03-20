@@ -19,7 +19,7 @@ use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
 
 /**
- * Featured eintraege model class.
+ * Featured items model class.
  *
  * @since  1.0.0
  */
@@ -85,7 +85,7 @@ class FeaturedModel extends ListModel
 
 		// Select required fields.
 		$query->select($this->getState('list.select', 'a.*'))
-			->from($db->quoteName('#__vkmdb_eintraege', 'a'))
+			->from($db->quoteName('#__vkmdb_items', 'a'))
 			->where($db->quoteName('a.featured') . ' = 1');
 		$query->innerJoin($db->quoteName('#__categories', 'c') . ' ON c.id = a.catid')
 			->whereIn($db->quoteName('c.access'), $groups);

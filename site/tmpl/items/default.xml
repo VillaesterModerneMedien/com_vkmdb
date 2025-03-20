@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <metadata>
-	<layout title="COM_VKMDB_EINTRAEGE_VIEW_DEFAULT_TITLE">
+	<layout title="COM_VKMDB_ITEMS_VIEW_DEFAULT_TITLE">
 		<message>
-			<![CDATA[COM_VKMDB_EINTRAEGE_VIEW_DEFAULT_DESC]]>
+			<![CDATA[COM_VKMDB_ITEMS_VIEW_DEFAULT_DESC]]>
 		</message>
 	</layout>
 

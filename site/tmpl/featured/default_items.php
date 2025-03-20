@@ -24,7 +24,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 ?>
 <div class="com-vkmdb-featured__items">
 	<?php if (empty($this->items)) : ?>
-		<p class="com-vkmdb-featured__message"> <?php echo Text::_('COM_VKMDB_NO_EINTRAEGE'); ?>	 </p>
+		<p class="com-vkmdb-featured__message"> <?php echo Text::_('COM_VKMDB_NO_ITEMS'); ?>	 </p>
 	<?php else : ?>
 	<form action="<?php echo htmlspecialchars(Uri::getInstance()->toString()); ?>" method="post" name="adminForm" id="adminForm">
 		<table class="com-vkmdb-featured__table table">
@@ -35,7 +35,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 					</th>
 
 					<th class="item-title">
-						<?php echo HTMLHelper::_('grid.sort', 'COM_VKMDB_EINTRAG_TITLE_LABEL', 'a.title', $listDirn, $listOrder); ?>
+						<?php echo HTMLHelper::_('grid.sort', 'COM_VKMDB_ITEM_TITLE_LABEL', 'a.title', $listDirn, $listOrder); ?>
 					</th>
 				</tr>
 			</thead>
@@ -48,7 +48,7 @@ $listDirn  = $this->escape($this->state->get('list.direction'));
 						</td>
 
 						<td class="item-title">
-                            <a href="<?php echo Route::_(RouteHelper::getEintragRoute($item->slug, $item->catid)); ?>">
+                            <a href="<?php echo Route::_(RouteHelper::getItemRoute($item->slug, $item->catid)); ?>">
                                 <?php echo $item->title; ?>
                             </a>
 						</td>

@@ -239,13 +239,13 @@ class Com_VkmdbInstallerScript extends InstallerScript
 	{
 		$table = Table::getInstance('Contenttype', 'JTable');
 
-		$table->load(['type_alias' => 'com_vkmdb.eintraege']);
+		$table->load(['type_alias' => 'com_vkmdb.items']);
 
 		$tablestring = '{
 			"special": {
-			  "dbtable": "#__vkmdb_eintraege",
+			  "dbtable": "#__vkmdb_items",
 			  "key": "id",
-			  "type": "EintragTable",
+			  "type": "ItemTable",
 			  "prefix": "VkmdbNamespace\\\\Component\\\\Vkmdb\\\\Administrator\\\\Table\\\\",
 			  "config": "array()"
 			},
@@ -280,11 +280,11 @@ class Com_VkmdbInstallerScript extends InstallerScript
 
 		$contenttype = [];
 		$contenttype['type_id'] = ($table->type_id) ? $table->type_id : 0;
-		$contenttype['type_title'] = 'Eintraege';
-		$contenttype['type_alias'] = 'com_vkmdb.eintrag';
+		$contenttype['type_title'] = 'Items';
+		$contenttype['type_alias'] = 'com_vkmdb.item';
 		$contenttype['table'] = $tablestring;
 		$contenttype['rules'] = '';
-		$contenttype['router'] = 'RouteHelper::getEintragRoute';
+		$contenttype['router'] = 'RouteHelper::getItemRoute';
 		$contenttype['field_mappings'] = $fieldmapping;
 		$contenttype['content_history_options'] = '';
 

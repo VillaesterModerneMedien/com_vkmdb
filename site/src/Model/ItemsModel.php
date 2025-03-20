@@ -19,11 +19,11 @@ use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
 
 /**
- * Eintraege model class.
+ * Items model class.
  *
  * @since  1.0.0
  */
-class EintraegeModel extends ListModel
+class ItemsModel extends ListModel
 {
 	/**
 	 * Constructor.
@@ -83,7 +83,7 @@ class EintraegeModel extends ListModel
 
 		// Select required fields from the categories.
 		$query->select($this->getState('list.select', 'a.*'))
-			->from($db->quoteName('#__vkmdb_eintraege', 'a'));
+			->from($db->quoteName('#__vkmdb_items', 'a'));
 		$query->innerJoin($db->quoteName('#__categories', 'c') . ' ON c.id = a.catid')
 			->whereIn($db->quoteName('c.access'), $groups);
 

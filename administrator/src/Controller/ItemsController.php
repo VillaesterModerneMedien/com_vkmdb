@@ -20,11 +20,11 @@ use Joomla\CMS\Session\Session;
 use Joomla\CMS\Router\Route;
 
 /**
- * The Eintraege list controller class.
+ * The Items list controller class.
  *
  * @since  1.0.0
  */
-class EintraegeController extends AdminController
+class ItemsController extends AdminController
 {	
 	/**
 	 * The prefix to use with controller messages.
@@ -32,7 +32,7 @@ class EintraegeController extends AdminController
 	 * @var    string
 	 * @since  1.6
 	 */
-	protected $text_prefix = 'COM_VKMDB_EINTRAEGE';
+	protected $text_prefix = 'COM_VKMDB_ITEMS';
 	
 	/**
 	 * Proxy for getModel.
@@ -45,7 +45,7 @@ class EintraegeController extends AdminController
 	 *
 	 * @since   1.0.0
 	 */
-	public function getModel($name = 'Eintrag', $prefix = 'Administrator', $config = array('ignore_request' => true))
+	public function getModel($name = 'Item', $prefix = 'Administrator', $config = array('ignore_request' => true))
 	{
 		return parent::getModel($name, $prefix, $config);
 	}
@@ -77,6 +77,6 @@ class EintraegeController extends AdminController
 			}
 		}
 
-		$this->setRedirect('index.php?option=com_vkmdb&view=eintraege');
+		$this->setRedirect('index.php?option=com_vkmdb&view=items');
 	}
 }

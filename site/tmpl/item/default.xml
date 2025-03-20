@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-	<layout title="COM_VKMDB_EINTRAG_VIEW_DEFAULT_TITLE">
+	<layout title="COM_VKMDB_ITEM_VIEW_DEFAULT_TITLE">
 		<message>
-			<![CDATA[COM_VKMDB_EINTRAG_VIEW_DEFAULT_DESC]]>
+			<![CDATA[COM_VKMDB_ITEM_VIEW_DEFAULT_DESC]]>
 		</message>
 	</layout>
 
@@ -15,12 +15,12 @@
                 name="id"
                 type="sql"
                 default=""
-                label="COM_VKMDB_FIELD_EINTRAG_LABEL"
-                query="SELECT id AS value, title AS text FROM #__vkmdb_eintraege where published IN (1,2)"
+                label="COM_VKMDB_FIELD_ITEM_LABEL"
+                query="SELECT id AS value, title AS text FROM #__vkmdb_items where published IN (1,2)"
                 value_field="text"
                 required="true"
             >
-                <option value="">COM_VKMDB_SELECT_AN_EINTRAG</option>
+                <option value="">COM_VKMDB_SELECT_AN_ITEM</option>
             </field>
 		</fieldset>
 	</fields>

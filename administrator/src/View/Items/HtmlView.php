@@ -6,7 +6,7 @@
  * @copyright   Copyright (C) 2025 Mario Hewera. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-namespace VkmdbNamespace\Component\Vkmdb\Administrator\View\Eintraege;
+namespace VkmdbNamespace\Component\Vkmdb\Administrator\View\Items;
 
 \defined('_JEXEC') or die;
 
@@ -20,7 +20,7 @@ use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
- *  * View class for a list of eintraege.
+ *  * View class for a list of items.
  *
  * @since  1.0.0
  */
@@ -113,13 +113,13 @@ class HtmlView extends BaseHtmlView
 		$user = Factory::getApplication()->getIdentity();
         $canDo = ContentHelper::getActions('com_vkmdb', 'category', $this->state->get('filter.category_id'));
         
-		ToolbarHelper::title(Text::_('COM_VKMDB_HEADLINE_EINTRAEGE'), 'list com_vkmdb');
+		ToolbarHelper::title(Text::_('COM_VKMDB_HEADLINE_ITEMS'), 'list com_vkmdb');
         
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance('toolbar');
         if ($canDo->get('core.create') || \count($user->getAuthorisedCategories('com_vkmdb', 'core.create')) > 0)
 		{
-			$toolbar->addNew('eintrag.add');
+			$toolbar->addNew('item.add');
 		}
         
         if (!$this->isEmptyState && $canDo->get('core.edit.state'))
@@ -133,21 +133,21 @@ class HtmlView extends BaseHtmlView
 
 			$childBar = $dropdown->getChildToolbar();
 
-			$childBar->publish('eintraege.publish')->listCheck(true);
+			$childBar->publish('items.publish')->listCheck(true);
 
-			$childBar->unpublish('eintraege.unpublish')->listCheck(true);
+			$childBar->unpublish('items.unpublish')->listCheck(true);
             
-            $childBar->archive('eintraege.archive')->listCheck(true);
+            $childBar->archive('items.archive')->listCheck(true);
             
             if ($this->state->get('filter.published') != -2)
 			{
-				$childBar->trash('eintraege.trash')->listCheck(true);
+				$childBar->trash('items.trash')->listCheck(true);
 			}
         }
         
         if (!$this->isEmptyState && $this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
 		{
-			$toolbar->delete('eintraege.delete')
+			$toolbar->delete('items.delete')
 				->text('JTOOLBAR_EMPTY_TRASH')
 				->message('JGLOBAL_CONFIRM_DELETE')
 				->listCheck(true);

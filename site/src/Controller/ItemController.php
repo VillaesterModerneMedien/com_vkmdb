@@ -18,11 +18,11 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Controller for single eintrag view
+ * Controller for single item view
  *
  * @since  1.0.0
  */
-class EintragController extends FormController
+class ItemController extends FormController
 {
 	/**
 	 * The URL view item variable.
@@ -43,7 +43,7 @@ class EintragController extends FormController
 	 *
 	 * @since   1.0.0
 	 */
-	public function getModel($name = 'Eintrag', $prefix = '', $config = ['ignore_request' => true])
+	public function getModel($name = 'Item', $prefix = '', $config = ['ignore_request' => true])
 	{
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}

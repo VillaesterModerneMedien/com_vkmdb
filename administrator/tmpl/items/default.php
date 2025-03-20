@@ -25,7 +25,7 @@ $userId    = $user->get('id');
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
 ?>
-<form action="<?php echo Route::_('index.php?option=com_vkmdb&view=eintraege'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_vkmdb&view=items'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">
@@ -40,7 +40,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
 					</div>
                 <?php else : ?>
 
-                    <table class="table" id="eintraegeList">
+                    <table class="table" id="itemsList">
                         <caption class="visually-hidden">
                             <?php echo Text::_('COM_VKMDB_TABLE_CAPTION'); ?>,
                             <span id="orderedBy"><?php echo Text::_('JGLOBAL_SORTED_BY'); ?> </span>,
@@ -52,7 +52,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
                                     <?php echo HTMLHelper::_('grid.checkall'); ?>
                                 </td>
                                 <th scope="col">
-                                    <?php echo HTMLHelper::_('searchtools.sort', Text::_('COM_VKMDB_HEADING_EINTRAG_TITLE'), 'a.title', $listDirn, $listOrder); ?>
+                                    <?php echo HTMLHelper::_('searchtools.sort', Text::_('COM_VKMDB_HEADING_ITEM_TITLE'), 'a.title', $listDirn, $listOrder); ?>
                                 </th>
                                 <th scope="col" class="w-1 text-center">
                                     <?php echo HTMLHelper::_('searchtools.sort', Text::_('JSTATUS'), 'a.published', $listDirn, $listOrder); ?>
@@ -77,7 +77,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
                                 <th scope="row" class="has-context">
                                     <div>
                                         <?php if ($canEdit) : ?>
-                                        <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_vkmdb&task=eintrag.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
+                                        <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_vkmdb&task=item.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
                                             <?php echo $item->title; ?>
                                         </a>
                                         <?php else : ?>
@@ -99,7 +99,7 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
                                     </div>
                                 </th>
                                 <td>
-                                    <?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'eintraege.', $canChange, 'cb'); ?>
+                                    <?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'items.', $canChange, 'cb'); ?>
                                 </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->id; ?>

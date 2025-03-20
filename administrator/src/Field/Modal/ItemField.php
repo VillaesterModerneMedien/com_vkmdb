@@ -20,11 +20,11 @@ use Joomla\CMS\Session\Session;
 use Joomla\Database\ParameterType;
 
 /**
- * Supports a modal eintrag picker.
+ * Supports a modal item picker.
  *
  * @since  1.0.0
  */
-class EintragField extends FormField
+class ItemField extends FormField
 {
 	/**
 	 * The form field type.
@@ -32,7 +32,7 @@ class EintragField extends FormField
 	 * @var     string
 	 * @since   1.0.0
 	 */
-	protected $type = 'Modal_Eintrag';
+	protected $type = 'Modal_Item';
 
 	/**
 	 * Method to get the field input markup.
@@ -53,11 +53,11 @@ class EintragField extends FormField
 		$languages = LanguageHelper::getContentLanguages(array(0, 1), false);
 		Factory::getLanguage()->load('com_vkmdb', JPATH_ADMINISTRATOR);
 		
-		// The active eintrag id field.
+		// The active item id field.
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 
 		// Create the modal id.
-		$modalId = 'Eintrag_' . $this->id;
+		$modalId = 'Item_' . $this->id;
 
 		// Add the modal field script to the document head.
 		/** @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
@@ -79,11 +79,11 @@ class EintragField extends FormField
 			if (!isset($scriptSelect[$this->id]))
             {
 				$wa->addInlineScript("
-				window.jSelectEintrag_" . $this->id . " = function (id, title, object) {
-					window.processModalSelect('Eintrag', '" . $this->id . "', id, title, '', object);
+				window.jSelectItem_" . $this->id . " = function (id, title, object) {
+					window.processModalSelect('Item', '" . $this->id . "', id, title, '', object);
 				}",
 					[],
-					['type' => 'eintrag']
+					['type' => 'item']
 				);
 
 				Text::script('JGLOBAL_ASSOCIATIONS_PROPAGATE_FAILED');
@@ -93,27 +93,27 @@ class EintragField extends FormField
 		}
 
         // Setup variables for display.
-        $linkEintraege = 'index.php?option=com_vkmdb&amp;view=eintraege&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
-        $linkEintrag  = 'index.php?option=com_vkmdb&amp;view=eintrag&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
-		$modalTitle   = Text::_('COM_VKMDB_SELECT_A_EINTRAG');
+        $linkItems = 'index.php?option=com_vkmdb&amp;view=items&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
+        $linkItem  = 'index.php?option=com_vkmdb&amp;view=item&amp;layout=modal&amp;tmpl=component&amp;' . Session::getFormToken() . '=1';
+		$modalTitle   = Text::_('COM_VKMDB_SELECT_A_ITEM');
 
 		if (isset($this->element['language']))
         {
-			$linkEintraege .= '&amp;forcedLanguage=' . $this->element['language'];
-			$linkEintrag   .= '&amp;forcedLanguage=' . $this->element['language'];
+			$linkItems .= '&amp;forcedLanguage=' . $this->element['language'];
+			$linkItem   .= '&amp;forcedLanguage=' . $this->element['language'];
 			$modalTitle .= ' &#8212; ' . $this->element['label'];
 		}
 
-		$urlSelect = $linkEintraege . '&amp;function=jSelectEintrag_' . $this->id;
-		$urlEdit   = $linkEintrag . '&amp;task=eintrag.edit&amp;id=\' + document.getElementById("' . $this->id . '_id").value + \'';
-		$urlNew    = $linkEintrag . '&amp;task=eintrag.add';
+		$urlSelect = $linkItems . '&amp;function=jSelectItem_' . $this->id;
+		$urlEdit   = $linkItem . '&amp;task=item.edit&amp;id=\' + document.getElementById("' . $this->id . '_id").value + \'';
+		$urlNew    = $linkItem . '&amp;task=item.add';
 
 		if ($value)
         {
 			$db    = Factory::getContainer()->get('DatabaseDriver');
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
-				->from($db->quoteName('#__vkmdb_eintraege'))
+				->from($db->quoteName('#__vkmdb_items'))
 				->where($db->quoteName('id') . ' = :id')
 				->bind(':id', $value, ParameterType::INTEGER);
 			$db->setQuery($query);
@@ -128,9 +128,9 @@ class EintragField extends FormField
 			}
 		}
 
-		$title = empty($title) ? Text::_('COM_VKMDB_SELECT_A_EINTRAG') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
+		$title = empty($title) ? Text::_('COM_VKMDB_SELECT_A_ITEM') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
 
-		// The current eintrag display field.
+		// The current item display field.
 		$html  = '';
 
 		if ($allowSelect || $allowNew || $allowEdit || $allowClear)
@@ -140,7 +140,7 @@ class EintragField extends FormField
 
 		$html .= '<input class="form-control" id="' . $this->id . '_name" type="text" value="' . $title . '" readonly size="35">';
 
-		// Select eintrag button
+		// Select item button
 		if ($allowSelect)
 		{
 			$html .= '<button'
@@ -153,7 +153,7 @@ class EintragField extends FormField
 				. '</button>';
 		}
 
-		// New eintrag button
+		// New item button
 		if ($allowNew)
 		{
 			$html .= '<button'
@@ -166,7 +166,7 @@ class EintragField extends FormField
 				. '</button>';
 		}
 
-		// Edit eintrag button
+		// Edit item button
 		if ($allowEdit)
 		{
 			$html .= '<button'
@@ -179,7 +179,7 @@ class EintragField extends FormField
 				. '</button>';
 		}
 
-		// Clear eintrag button
+		// Clear item button
 		if ($allowClear)
 		{
 			$html .= '<button'
@@ -192,12 +192,12 @@ class EintragField extends FormField
 		}
 
 
-		// Propagate eintrag button
+		// Propagate item button
 		if ($allowPropagate && count($languages) > 2)
 		{
 			// Strip off language tag at the end
 			$tagLength = (int) strlen($this->element['language']);
-			$callbackFunctionStem = substr("jSelectEintrag_" . $this->id, 0, -$tagLength);
+			$callbackFunctionStem = substr("jSelectItem_" . $this->id, 0, -$tagLength);
 
 			$html .= '<button'
 			. ' class="btn btn-primary' . ($value ? '' : ' hidden') . '"'
@@ -214,7 +214,7 @@ class EintragField extends FormField
 			$html .= '</span>';
 		}
 
-		// Select eintrag modal
+		// Select item modal
 		if ($allowSelect)
 		{
 			$html .= HTMLHelper::_(
@@ -233,14 +233,14 @@ class EintragField extends FormField
 			);
 		}
 
-		// New eintrag modal
+		// New item modal
 		if ($allowNew)
 		{
 			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				'ModalNew' . $modalId,
 				array(
-					'title'       => Text::_('COM_VKMDB_NEW_EINTRAG'),
+					'title'       => Text::_('COM_VKMDB_NEW_ITEM'),
 					'backdrop'    => 'static',
 					'keyboard'    => false,
 					'closeButton' => false,
@@ -251,28 +251,28 @@ class EintragField extends FormField
 					'modalWidth'  => 80,
 					'footer'      => '<button type="button" class="btn btn-secondary"'
 							. ' onclick="window.processModalEdit(this, \''
-							. $this->id . '\', \'add\', \'eintrag\', \'cancel\', \'eintrag-form\', \'jform_id\', \'jform_name\'); return false;">'
+							. $this->id . '\', \'add\', \'item\', \'cancel\', \'item-form\', \'jform_id\', \'jform_name\'); return false;">'
 							. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
 							. '<button type="button" class="btn btn-primary"'
 							. ' onclick="window.processModalEdit(this, \''
-							. $this->id . '\', \'add\', \'eintrag\', \'save\', \'eintrag-form\', \'jform_id\', \'jform_name\'); return false;">'
+							. $this->id . '\', \'add\', \'item\', \'save\', \'item-form\', \'jform_id\', \'jform_name\'); return false;">'
 							. Text::_('JSAVE') . '</button>'
 							. '<button type="button" class="btn btn-success"'
 							. ' onclick="window.processModalEdit(this, \''
-							. $this->id . '\', \'add\', \'eintrag\', \'apply\', \'eintrag-form\', \'jform_id\', \'jform_name\'); return false;">'
+							. $this->id . '\', \'add\', \'item\', \'apply\', \'item-form\', \'jform_id\', \'jform_name\'); return false;">'
 							. Text::_('JAPPLY') . '</button>',
 				)
 			);
 		}
 
-		// Edit eintrag modal.
+		// Edit item modal.
 		if ($allowEdit)
 		{
 			$html .= HTMLHelper::_(
 				'bootstrap.renderModal',
 				'ModalEdit' . $modalId,
 				array(
-					'title'       => Text::_('COM_VKMDB_EDIT_EINTRAG'),
+					'title'       => Text::_('COM_VKMDB_EDIT_ITEM'),
 					'backdrop'    => 'static',
 					'keyboard'    => false,
 					'closeButton' => false,
@@ -283,15 +283,15 @@ class EintragField extends FormField
 					'modalWidth'  => 80,
 					'footer'      => '<button type="button" class="btn btn-secondary"'
 							. ' onclick="window.processModalEdit(this, \'' . $this->id
-							. '\', \'edit\', \'eintrag\', \'cancel\', \'eintrag-form\', \'jform_id\', \'jform_name\'); return false;">'
+							. '\', \'edit\', \'item\', \'cancel\', \'item-form\', \'jform_id\', \'jform_name\'); return false;">'
 							. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>'
 							. '<button type="button" class="btn btn-primary"'
 							. ' onclick="window.processModalEdit(this, \''
-							. $this->id . '\', \'edit\', \'eintrag\', \'save\', \'eintrag-form\', \'jform_id\', \'jform_name\'); return false;">'
+							. $this->id . '\', \'edit\', \'item\', \'save\', \'item-form\', \'jform_id\', \'jform_name\'); return false;">'
 							. Text::_('JSAVE') . '</button>'
 							. '<button type="button" class="btn btn-success"'
 							. ' onclick="window.processModalEdit(this, \''
-							. $this->id . '\', \'edit\', \'eintrag\', \'apply\', \'eintrag-form\', \'jform_id\', \'jform_name\'); return false;">'
+							. $this->id . '\', \'edit\', \'item\', \'apply\', \'item-form\', \'jform_id\', \'jform_name\'); return false;">'
 							. Text::_('JAPPLY') . '</button>',
 				)
 			);
@@ -301,7 +301,7 @@ class EintragField extends FormField
 		$class = $this->required ? ' class="required modal-value"' : '';
 
 		$html .= '<input type="hidden" id="' . $this->id . '_id"' . $class . ' data-required="' . (int) $this->required . '" name="' . $this->name
-			. '" data-text="' . htmlspecialchars(Text::_('COM_VKMDB_SELECT_A_EINTRAG', true), ENT_COMPAT, 'UTF-8') . '" value="' . $value . '">';
+			. '" data-text="' . htmlspecialchars(Text::_('COM_VKMDB_SELECT_A_ITEM', true), ENT_COMPAT, 'UTF-8') . '" value="' . $value . '">';
 
 		return $html;
 	}

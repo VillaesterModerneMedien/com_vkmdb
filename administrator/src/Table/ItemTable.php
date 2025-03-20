@@ -22,11 +22,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\Registry\Registry;
 
 /**
- * Eintrag Table class.
+ * Item Table class.
  *
  * @since  1.0.0
  */
-class EintragTable extends Table implements VersionableTableInterface, TaggableTableInterface
+class ItemTable extends Table implements VersionableTableInterface, TaggableTableInterface
 {   
     use TaggableTableTrait;
     
@@ -56,9 +56,9 @@ class EintragTable extends Table implements VersionableTableInterface, TaggableT
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
-		$this->typeAlias = 'com_vkmdb.eintrag';
+		$this->typeAlias = 'com_vkmdb.item';
 
-		parent::__construct('#__vkmdb_eintraege', 'id', $db);
+		parent::__construct('#__vkmdb_items', 'id', $db);
 	}
 
 	/**
@@ -153,7 +153,7 @@ class EintragTable extends Table implements VersionableTableInterface, TaggableT
 		}
         
         // Verify that the alias is unique
-		$table = Table::getInstance('EintragTable', __NAMESPACE__ . '\\', array('dbo' => $db));
+		$table = Table::getInstance('ItemTable', __NAMESPACE__ . '\\', array('dbo' => $db));
 		if ($table->load(array('alias' => $this->alias, 'catid' => $this->catid)) && ($table->id != $this->id || $this->id == 0))
 
 		{

@@ -63,11 +63,11 @@
 			</params>
 		</menu>
 		<submenu>
-			<menu view="eintraege">
-                COM_VKMDB_SUBMENU_EINTRAEGE
+			<menu view="items">
+                COM_VKMDB_SUBMENU_ITEMS
                 <params>
-					<menu-quicktask-title>COM_VKMDB_SUBMENU_NEW_EINTRAG</menu-quicktask-title>
-					<menu-quicktask>index.php?option=com_vkmdb&amp;task=eintrag.add</menu-quicktask>
+					<menu-quicktask-title>COM_VKMDB_SUBMENU_NEW_ITEM</menu-quicktask-title>
+					<menu-quicktask>index.php?option=com_vkmdb&amp;task=item.add</menu-quicktask>
 				</params>
             </menu>
             
@@ -75,7 +75,7 @@
 				JCATEGORY
                 <params>
 					<menu-quicktask>index.php?option=com_categories&amp;extension=com_vkmdb&amp;task=category.add</menu-quicktask>
-					<menu-quicktask-title>COM_VKMDB_SUBMENU_ADD_EINTRAEGE_CATEGORY</menu-quicktask-title>
+					<menu-quicktask-title>COM_VKMDB_SUBMENU_ADD_ITEMS_CATEGORY</menu-quicktask-title>
 				</params>
 			</menu>
 		</submenu>

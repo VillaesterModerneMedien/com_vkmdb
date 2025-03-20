@@ -63,7 +63,7 @@ class Icon
 	{
 		$uri = Uri::getInstance();
 
-		$url = 'index.php?option=com_vkmdb&task=eintrag.add&return=' . base64_encode($uri) . '&id=0&catid=' . $category->id;
+		$url = 'index.php?option=com_vkmdb&task=item.add&return=' . base64_encode($uri) . '&id=0&catid=' . $category->id;
 
 		$text = LayoutHelper::render('joomla.content.icons.create', array('params' => $params, 'legacy' => false));
 
@@ -79,27 +79,27 @@ class Icon
 
 		$button = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 
-		$output = '<span class="hasTooltip" title="' . HTMLHelper::_('tooltipText', 'COM_VKMDB_CREATE_EINTRAG') . '">' . $button . '</span>';
+		$output = '<span class="hasTooltip" title="' . HTMLHelper::_('tooltipText', 'COM_VKMDB_CREATE_ITEM') . '">' . $button . '</span>';
 
 		return $output;
 	}
 
 	/**
-	 * Display an edit icon for the eintrag.
+	 * Display an edit icon for the item.
 	 *
-	 * This icon will not display in a popup window, nor if the eintrag is trashed.
+	 * This icon will not display in a popup window, nor if the item is trashed.
 	 * Edit access checks must be performed in the calling code.
 	 *
-	 * @param   object    $eintrag  The eintrag information
+	 * @param   object    $item  The item information
 	 * @param   Registry  $params   The item parameters
 	 * @param   array     $attribs  Optional attributes for the link
 	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
 	 *
-	 * @return  string   The HTML for the eintrag edit icon.
+	 * @return  string   The HTML for the item edit icon.
 	 *
 	 * @since   1.0.0
 	 */
-	public static function edit($eintrag, $params, $attribs = array(), $legacy = false)
+	public static function edit($item, $params, $attribs = array(), $legacy = false)
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
@@ -111,7 +111,7 @@ class Icon
 		}
 
 		// Ignore if the state is negative (trashed).
-		if ($eintrag->published < 0)
+		if ($item->published < 0)
 		{
 			return '';
 		}
@@ -119,14 +119,14 @@ class Icon
 		// Set the link class
 		$attribs['class'] = 'dropdown-item';
 
-		// Show checked_out icon if the eintrag is checked out by a different user
-		if (property_exists($eintrag, 'checked_out')
-			&& property_exists($eintrag, 'checked_out_time')
-			&& $eintrag->checked_out > 0
-			&& $eintrag->checked_out != $user->get('id'))
+		// Show checked_out icon if the item is checked out by a different user
+		if (property_exists($item, 'checked_out')
+			&& property_exists($item, 'checked_out_time')
+			&& $item->checked_out > 0
+			&& $item->checked_out != $user->get('id'))
 		{
-			$checkoutUser = Factory::getApplication()->getIdentity($eintrag->checked_out);
-			$date         = HTMLHelper::_('date', $eintrag->checked_out_time);
+			$checkoutUser = Factory::getApplication()->getIdentity($item->checked_out);
+			$date         = HTMLHelper::_('date', $item->checked_out_time);
 			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_VKMDB_CHECKED_OUT_BY', $checkoutUser->name)
 				. ' <br /> ' . $date;
 
@@ -137,15 +137,15 @@ class Icon
 			return $output;
 		}
 
-		if (!isset($eintrag->slug))
+		if (!isset($item->slug))
 		{
-			$eintrag->slug = "";
+			$item->slug = "";
 		}
 
-		$eintragUrl = RouteHelper::getEintragRoute($eintrag->slug, $eintrag->catid, $eintrag->language);
-		$url        = $eintragUrl . '&task=eintrag.edit&id=' . $eintrag->id . '&return=' . base64_encode($uri);
+		$itemUrl = RouteHelper::getItemRoute($item->slug, $item->catid, $item->language);
+		$url        = $itemUrl . '&task=item.edit&id=' . $item->id . '&return=' . base64_encode($uri);
 
-		if ($eintrag->published == 0)
+		if ($item->published == 0)
 		{
 			$overlib = Text::_('JUNPUBLISHED');
 		}
@@ -154,22 +154,22 @@ class Icon
 			$overlib = Text::_('JPUBLISHED');
 		}
 
-		if (!isset($eintrag->created))
+		if (!isset($item->created))
 		{
 			$date = HTMLHelper::_('date', 'now');
 		}
 		else
 		{
-			$date = HTMLHelper::_('date', $eintrag->created);
+			$date = HTMLHelper::_('date', $item->created);
 		}
 
-		if (!isset($created_by_alias) && !isset($eintrag->created_by))
+		if (!isset($created_by_alias) && !isset($item->created_by))
 		{
 			$author = '';
 		}
 		else
 		{
-			$author = $eintrag->created_by_alias ?: Factory::getApplication()->getIdentity($eintrag->created_by)->name;
+			$author = $item->created_by_alias ?: Factory::getApplication()->getIdentity($item->created_by)->name;
 		}
 
 		$overlib .= '&lt;br /&gt;';
@@ -177,19 +177,19 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_VKMDB_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 
-		$icon = $eintrag->published ? 'edit' : 'eye-slash';
+		$icon = $item->published ? 'edit' : 'eye-slash';
 
-		if (strtotime($eintrag->publish_up) > strtotime(Factory::getDate())
-			|| ((strtotime($eintrag->publish_down) < strtotime(Factory::getDate())) && $eintrag->publish_down != Factory::getContainer()->get('DatabaseDriver')->getNullDate()))
+		if (strtotime($item->publish_up) > strtotime(Factory::getDate())
+			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getContainer()->get('DatabaseDriver')->getNullDate()))
 		{
 			$icon = 'eye-slash';
 		}
 
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
-			. HTMLHelper::tooltipText(Text::_('COM_VKMDB_EDIT_EINTRAG'), $overlib, 0, 0) . '"></span> ';
+			. HTMLHelper::tooltipText(Text::_('COM_VKMDB_EDIT_ITEM'), $overlib, 0, 0) . '"></span> ';
 		$text .= Text::_('JGLOBAL_EDIT');
 
-		$attribs['title'] = Text::_('COM_VKMDB_EDIT_EINTRAG');
+		$attribs['title'] = Text::_('COM_VKMDB_EDIT_ITEM');
 		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 
 		return $output;

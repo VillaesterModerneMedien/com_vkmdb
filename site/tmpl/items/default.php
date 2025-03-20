@@ -17,7 +17,7 @@ $wa = $this->document->getWebAssetManager();
 $wa->useScript('com_vkmdb.script');
 // $wa->useAsset('script', 'jquery');
 ?>
-<div class="com-vkmdb-featured list-eintraege<?php echo $this->pageclass_sfx; ?>">
+<div class="com-vkmdb-featured list-items<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading') != 0) : ?>
 	<h1>
 		<?php echo $this->escape($this->params->get('page_heading')); ?>

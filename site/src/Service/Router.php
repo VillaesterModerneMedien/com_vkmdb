@@ -89,13 +89,13 @@ class Router extends RouterView
 		$category->setKey('id')->setParent($categories, 'catid')->setNestable();
 		$this->registerView($category);
         
-		$eintrag = new RouterViewConfiguration('eintrag');
-		$eintrag->setKey('id')->setParent($category, 'catid');
-		$this->registerView($eintrag);
+		$item = new RouterViewConfiguration('item');
+		$item->setKey('id')->setParent($category, 'catid');
+		$this->registerView($item);
         
 		$this->registerView(new RouterViewConfiguration('featured'));
         
-		$this->registerView(new RouterViewConfiguration('eintraege'));
+		$this->registerView(new RouterViewConfiguration('items'));
 
 		parent::__construct($app, $menu);
 
@@ -105,23 +105,23 @@ class Router extends RouterView
 	}
     
     /**
-	 * Method to get the segment(s) for a eintrag
+	 * Method to get the segment(s) for a item
 	 *
-	 * @param   string  $id     ID of the eintrag to retrieve the segments for
+	 * @param   string  $id     ID of the item to retrieve the segments for
 	 * @param   array   $query  The request that is built right now
 	 *
 	 * @return  array|string  The segments of this item
 	 * 
 	 * @since  1.0.0
 	 */
-	public function getEintragSegment($id, $query)
+	public function getItemSegment($id, $query)
 	{
 		if (!strpos($id, ':'))
 		{
 			$id = (int) $id;
 			$dbquery = $this->db->getQuery(true);
 			$dbquery->select($this->db->quoteName('alias'))
-				->from($this->db->quoteName('#__vkmdb_eintraege'))
+				->from($this->db->quoteName('#__vkmdb_items'))
 				->where($this->db->quoteName('id') . ' = :id')
 				->bind(':id', $id, ParameterType::INTEGER);
 			$this->db->setQuery($dbquery);
@@ -140,22 +140,22 @@ class Router extends RouterView
 	}
     
     /**
-	 * Method to get the segment(s) for a eintrag
+	 * Method to get the segment(s) for a item
 	 *
-	 * @param   string  $segment  Segment of the eintrag to retrieve the ID for
+	 * @param   string  $segment  Segment of the item to retrieve the ID for
 	 * @param   array   $query    The request that is parsed right now
 	 *
 	 * @return  mixed   The id of this item or false
 	 * 
 	 * @since  1.0.0
 	 */
-	public function getEintragId($segment, $query)
+	public function getItemId($segment, $query)
 	{
 		if ($this->noIDs)
 		{
 			$dbquery = $this->db->getQuery(true);
 			$dbquery->select($this->db->quoteName('id'))
-				->from($this->db->quoteName('#__vkmdb_eintraege'))
+				->from($this->db->quoteName('#__vkmdb_items'))
 				->where(
 					[
 						$this->db->quoteName('alias') . ' = :alias',

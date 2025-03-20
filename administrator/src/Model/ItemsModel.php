@@ -18,11 +18,11 @@ use Joomla\Utilities\ArrayHelper;
 use Joomla\CMS\Table\Table;
 
 /**
- * Methods supporting a list of eintraege records.
+ * Methods supporting a list of items records.
  *
  * @since  1.0.0
  */
-class EintraegeModel extends ListModel
+class ItemsModel extends ListModel
 {	
 	/**
 	 * Constructor.
@@ -62,7 +62,7 @@ class EintraegeModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getTable($type = 'Eintrag', $prefix = 'Administrator', $config = array())
+	public function getTable($type = 'Item', $prefix = 'Administrator', $config = array())
 	{
 		return parent::getTable($type, $prefix, $config);
 	}
@@ -104,7 +104,7 @@ class EintraegeModel extends ListModel
 
 		// Select the required fields from the table.
 		$query->select('a.*');
-		$query->from($db->quoteName('#__vkmdb_eintraege', 'a'));
+		$query->from($db->quoteName('#__vkmdb_items', 'a'));
         
 		// Join over the categories.
 		$query->select($db->quoteName('c.title', 'category_title'))

@@ -112,7 +112,7 @@
 		/>
     </fieldset>
     
-    <fieldset name="eintragfieldset">
+    <fieldset name="itemfieldset">
         <field
             name="content"
             type="editor"
@@ -123,19 +123,19 @@
         />
 
         <field
-            name="eintragfield1"
+            name="itemfield1"
             type="text"
-            label="COM_VKMDB_FIELD_EINTRAGFIELD1_LABEL"
-            description="COM_VKMDB_FIELD_EINTRAGFIELD1_DESC"
+            label="COM_VKMDB_FIELD_ITEMFIELD1_LABEL"
+            description="COM_VKMDB_FIELD_ITEMFIELD1_DESC"
             class="input-xxlarge"
             default=""
             required="true"
         />
 
         <field
-            name="eintragfield2"
+            name="itemfield2"
             type="radio"
-            label="COM_VKMDB_FIELD_EINTRAGFIELD2_LABEL"
+            label="COM_VKMDB_FIELD_ITEMFIELD2_LABEL"
             layout="joomla.form.field.radio.switcher"
             validate="options"
         >
@@ -144,17 +144,17 @@
         </field>
 
         <field
-            name="eintragfield3"
+            name="itemfield3"
             type="list"
-            label="COM_VKMDB_FIELD_EINTRAGFIELD3_LABEL"
+            label="COM_VKMDB_FIELD_ITEMFIELD3_LABEL"
             default="0"
             validate="options"
         >
-            <option value="-1">COM_VKMDB_FIELD_EINTRAGFIELD3_SELECT</option>
-            <option value="1">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_1</option>
-            <option value="2">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_2</option>
-            <option value="3">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_3</option>
-            <option value="4">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_4</option>
+            <option value="-1">COM_VKMDB_FIELD_ITEMFIELD3_SELECT</option>
+            <option value="1">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_1</option>
+            <option value="2">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_2</option>
+            <option value="3">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_3</option>
+            <option value="4">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_4</option>
         </field>
     </fieldset>
 </form>

@@ -11,9 +11,9 @@
       "uri": "com_vkmdb/script.js"
     },
     {
-      "name": "com_vkmdb.admin-eintraege-modal",
+      "name": "com_vkmdb.admin-items-modal",
       "type": "script",
-      "uri": "com_vkmdb/admin-eintraege-modal.js",
+      "uri": "com_vkmdb/admin-items-modal.js",
       "attributes": {
         "type": "module"
       }

@@ -26,17 +26,17 @@ $wa->useScript('keepalive')
 $layout  = 'edit';
 $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
-<div class="vkmdb vkmdb_eintrag">
+<div class="vkmdb vkmdb_item">
 	<form action="<?php echo Route::_('index.php?option=com_vkmdb&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate">
 		<?php echo LayoutHelper::render('joomla.edit.title_alias', $this); ?>
         
         <div class="main-card">
             <?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', array('active' => 'details', 'recall' => true, 'breakpoint' => 768)); ?>
             
-            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', empty($this->item->id) ? Text::_('COM_VKMDB_NEW_EINTRAG') : Text::_('COM_VKMDB_EDIT_EINTRAG')); ?>
+            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', empty($this->item->id) ? Text::_('COM_VKMDB_NEW_ITEM') : Text::_('COM_VKMDB_EDIT_ITEM')); ?>
             <div class="row">
                 <div class="col-lg-9">
-                    <?php echo $this->form->renderFieldset('eintragfieldset'); ?>
+                    <?php echo $this->form->renderFieldset('itemfieldset'); ?>
                 </div>
                 <div class="col-lg-3">
                     <?php echo LayoutHelper::render('joomla.edit.global', $this); ?>

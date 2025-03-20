@@ -26,9 +26,9 @@ if ($app->isClient('site')) {
 
 /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
-$wa->useScript('com_vkmdb.admin-eintraege-modal');
+$wa->useScript('com_vkmdb.admin-items-modal');
 
-$function  = $app->input->getCmd('function', 'jSelectEintrag');
+$function  = $app->input->getCmd('function', 'jSelectItem');
 $editor    = $app->input->getCmd('editor', '');
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
@@ -36,13 +36,13 @@ $onclick   = $this->escape($function);
 
 if (!empty($editor)) {
     // This view is used also in com_menus. Load the xtd script only if the editor is set!
-    $this->document->addScriptOptions('xtd-eintraege', array('editor' => $editor));
-    $onclick = "jSelectEintrag";
+    $this->document->addScriptOptions('xtd-items', array('editor' => $editor));
+    $onclick = "jSelectItem";
 }
 ?>
 <div class="container-popup">
 
-    <form action="<?php echo Route::_('index.php?option=com_vkmdb&view=eintraege&layout=modal&tmpl=component&editor=' . $editor . '&function=' . $function . '&' . Session::getFormToken() . '=1'); ?>" method="post" name="adminForm" id="adminForm">
+    <form action="<?php echo Route::_('index.php?option=com_vkmdb&view=items&layout=modal&tmpl=component&editor=' . $editor . '&function=' . $function . '&' . Session::getFormToken() . '=1'); ?>" method="post" name="adminForm" id="adminForm">
 
         <?php echo LayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 
@@ -88,7 +88,7 @@ if (!empty($editor)) {
                             </span>
                         </td>
                         <th scope="row">
-                            <a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape($item->title); ?>" data-uri="<?php echo $this->escape(RouteHelper::getEintragRoute($item->id, $item->catid)); ?>">
+                            <a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape($item->title); ?>" data-uri="<?php echo $this->escape(RouteHelper::getItemRoute($item->id, $item->catid)); ?>">
                                 <?php echo $this->escape($item->title); ?>
                             </a>
   

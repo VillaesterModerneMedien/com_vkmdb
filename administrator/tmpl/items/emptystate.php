@@ -25,7 +25,7 @@ $user = Factory::getApplication()->getIdentity();
 
 if ($user->authorise('core.create', 'com_vkmdb') || count($user->getAuthorisedCategories('com_vkmdb', 'core.create')) > 0)
 {
-	$displayData['createURL'] = 'index.php?option=com_vkmdb&task=eintrag.add';
+	$displayData['createURL'] = 'index.php?option=com_vkmdb&task=item.add';
 }
 
 echo LayoutHelper::render('joomla.content.emptystate', $displayData);

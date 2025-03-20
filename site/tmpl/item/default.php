@@ -19,7 +19,7 @@ $wa = $this->document->getWebAssetManager();
 $wa->useScript('com_vkmdb.script');
 // $wa->useAsset('script', 'jquery');
 ?>
-<div class="com-vkmdb-eintrag view-eintrag<?php echo $this->pageclass_sfx; ?>">
+<div class="com-vkmdb-item view-item<?php echo $this->pageclass_sfx; ?>">
 <?php if ($this->params->get('show_page_heading') != 0) : ?>
 	<h1>
 		<?php echo $this->escape($this->params->get('page_heading')); ?>
@@ -30,6 +30,6 @@ $wa->useScript('com_vkmdb.script');
 	</h1>
 <?php endif; ?>
 
-<div class="eintrag-content">
+<div class="item-content">
     <?php echo $this->item->content; ?>
 </div>

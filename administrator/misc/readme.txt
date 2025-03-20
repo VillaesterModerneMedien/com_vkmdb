@@ -1,7 +1,7 @@
 # Joomla! 4.x Component Boilerplate
 
-VKM-DB Ninox API
-Verbiundet Joomla mit der Ninox API
+VKM Database Ninox
+Meine Extension
 com_vkmdb
 
 Copyright (C) 2025 Mario Hewera. All rights reserved. 

@@ -16,11 +16,11 @@ use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
 
 /**
- * Eintrag model for the Joomla Vkmdb component.
+ * Item model for the Joomla Vkmdb component.
  *
  * @since  1.0.0
  */
-class EintragModel extends BaseDatabaseModel
+class ItemModel extends BaseDatabaseModel
 {
 	/**
 	 * @var string item
@@ -28,9 +28,9 @@ class EintragModel extends BaseDatabaseModel
 	protected $_item = null;
 
 	/**
-	 * Gets a eintrag
+	 * Gets a item
 	 *
-	 * @param   integer  $pk  Id for the eintrag
+	 * @param   integer  $pk  Id for the item
 	 *
 	 * @return  mixed Object or null
 	 *
@@ -54,7 +54,7 @@ class EintragModel extends BaseDatabaseModel
 				$query = $db->getQuery(true);
 
 				$query->select('*')
-					->from($db->quoteName('#__vkmdb_eintraege', 'a'))
+					->from($db->quoteName('#__vkmdb_items', 'a'))
 					->where('a.id = ' . (int) $pk);
 
 				$db->setQuery($query);
@@ -62,7 +62,7 @@ class EintragModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_VKMDB_ERROR_EINTRAG_NOT_FOUND'), 404);
+					throw new \Exception(Text::_('COM_VKMDB_ERROR_ITEM_NOT_FOUND'), 404);
 				}
 
 				$this->_item[$pk] = $data;
@@ -89,7 +89,7 @@ class EintragModel extends BaseDatabaseModel
 	{
 		$app = Factory::getApplication();
 
-		$this->setState('eintrag.id', $app->input->getInt('id'));
+		$this->setState('item.id', $app->input->getInt('id'));
 		$this->setState('params', $app->getParams());
 	}
 }

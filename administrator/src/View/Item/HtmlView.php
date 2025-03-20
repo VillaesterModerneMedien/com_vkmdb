@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace VkmdbNamespace\Component\Vkmdb\Administrator\View\Eintrag;
+namespace VkmdbNamespace\Component\Vkmdb\Administrator\View\Item;
  
 \defined('_JEXEC') or die;
 
@@ -20,7 +20,7 @@ use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
- * View to edit a Eintrag.
+ * View to edit a Item.
  *
  * @since  1.0.0
  */
@@ -85,44 +85,44 @@ class HtmlView extends BaseHtmlView
 		
 		if ($isNew)
 		{
-			ToolbarHelper::title(Text::_('COM_VKMDB_MANAGER_EINTRAG_NEW'), 'home com_vkmdb');
+			ToolbarHelper::title(Text::_('COM_VKMDB_MANAGER_ITEM_NEW'), 'home com_vkmdb');
 		}
 		else
 		{
-			ToolbarHelper::title(Text::_('COM_VKMDB_MANAGER_EINTRAG_EDIT'), 'home com_vkmdb');
+			ToolbarHelper::title(Text::_('COM_VKMDB_MANAGER_ITEM_EDIT'), 'home com_vkmdb');
 		}
 		
 		$toolbarButtons = [];
 
-		// If a new eintrag, can save the eintrag.  Allow users with edit permissions to apply changes to prevent returning to grid.
+		// If a new item, can save the item.  Allow users with edit permissions to apply changes to prevent returning to grid.
 		if ($isNew && $canDo->get('core.create'))
 		{
 			if ($canDo->get('core.edit'))
 			{
-				ToolbarHelper::apply('eintrag.apply');
+				ToolbarHelper::apply('item.apply');
 			}
 
-			$toolbarButtons[] = ['save', 'eintrag.save'];
+			$toolbarButtons[] = ['save', 'item.save'];
 		}
 
-		// If not checked out, can save the eintrag.
+		// If not checked out, can save the item.
 		if (!$isNew && $canDo->get('core.edit'))
 		{
-			ToolbarHelper::apply('eintrag.apply');
+			ToolbarHelper::apply('item.apply');
 
-			$toolbarButtons[] = ['save', 'eintrag.save'];
+			$toolbarButtons[] = ['save', 'item.save'];
 		}
 
-		// If the user can create new eintraege, allow them to see Save & New
+		// If the user can create new items, allow them to see Save & New
 		if ($canDo->get('core.create'))
 		{
-			$toolbarButtons[] = ['save2new', 'eintrag.save2new'];
+			$toolbarButtons[] = ['save2new', 'item.save2new'];
 		}
 
-		// If an existing eintrag, can save to a copy only if we have create rights.
+		// If an existing item, can save to a copy only if we have create rights.
 		if (!$isNew && $canDo->get('core.create'))
 		{
-			$toolbarButtons[] = ['save2copy', 'eintrag.save2copy'];
+			$toolbarButtons[] = ['save2copy', 'item.save2copy'];
 		}
 
 		ToolbarHelper::saveGroup(
@@ -132,11 +132,11 @@ class HtmlView extends BaseHtmlView
 
 		if (empty($this->item->id))
 		{
-			ToolbarHelper::cancel('eintrag.cancel');
+			ToolbarHelper::cancel('item.cancel');
 		}
 		else
 		{
-			ToolbarHelper::cancel('eintrag.cancel', 'JTOOLBAR_CLOSE');
+			ToolbarHelper::cancel('item.cancel', 'JTOOLBAR_CLOSE');
 		}
 		
 		ToolbarHelper::divider();

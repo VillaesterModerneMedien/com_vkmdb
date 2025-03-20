@@ -45,17 +45,17 @@
         
  
         <field
-			name="eintragfield3"
+			name="itemfield3"
 			type="list"
-			label="COM_VKMDB_FIELD_EINTRAGFIELD3_LABEL"
+			label="COM_VKMDB_FIELD_ITEMFIELD3_LABEL"
 			validate="options"
 			onchange="this.form.submit();"
 		>
-            <option value="">COM_VKMDB_FIELD_EINTRAGFIELD3_SELECT</option>
-			<option value="1">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_1</option>
-			<option value="2">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_2</option>
-			<option value="3">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_3</option>
-			<option value="4">COM_VKMDB_FIELD_EINTRAGFIELD3_VALUE_4</option>
+            <option value="">COM_VKMDB_FIELD_ITEMFIELD3_SELECT</option>
+			<option value="1">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_1</option>
+			<option value="2">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_2</option>
+			<option value="3">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_3</option>
+			<option value="4">COM_VKMDB_FIELD_ITEMFIELD3_VALUE_4</option>
 		</field>
 	</fields>
     

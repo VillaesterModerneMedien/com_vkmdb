@@ -164,9 +164,9 @@
 			</field>
 
 			<field
- 				name="eintraege_display_num"
+ 				name="items_display_num"
  				type="list"
- 				label="COM_VKMDB_NUMBER_EINTRAEGE_LIST_LABEL"
+ 				label="COM_VKMDB_NUMBER_ITEMS_LIST_LABEL"
  				useglobal="true"
  				>
  				<option value="5">J5</option>
@@ -193,17 +193,17 @@
 			</field>
 		</fieldset>
 
-		<fieldset name="eintrag" label="COM_VKMDB_BASIC_OPTIONS_FIELDSET_LABEL"
+		<fieldset name="item" label="COM_VKMDB_BASIC_OPTIONS_FIELDSET_LABEL"
 			addfieldprefix="Joomla\Component\Fields\Administrator\Field">
 
 			<field
-				name="eintrag_layout"
+				name="item_layout"
 				type="componentlayout"
 				label="JGLOBAL_FIELD_LAYOUT_LABEL"
 				class="custom-select"
 				menuitems="true"
 				extension="com_vkmdb"
-				view="eintrag"
+				view="item"
 			/>
 
 			<field

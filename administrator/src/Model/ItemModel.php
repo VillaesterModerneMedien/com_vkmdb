@@ -28,11 +28,11 @@ use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Item Model for a Eintrag.
+ * Item Model for a Item.
  *
  * @since  1.0.0
  */
-class EintragModel extends AdminModel
+class ItemModel extends AdminModel
 {
 	use VersionableModelTrait;
     
@@ -42,7 +42,7 @@ class EintragModel extends AdminModel
 	 * @var      string
 	 * @since    1.0.0
 	 */
-	public $typeAlias = 'com_vkmdb.eintrag';
+	public $typeAlias = 'com_vkmdb.item';
 
 	/**
 	 * @var    string  The prefix to use with controller messages.
@@ -56,7 +56,7 @@ class EintragModel extends AdminModel
 	 * @var string
 	 * @since  4.0.0
 	 */
-	protected $formName = 'eintrag';
+	protected $formName = 'item';
 
 	/**
 	 * @var    string  The help screen base URL for the component.
@@ -91,7 +91,7 @@ class EintragModel extends AdminModel
 	 * @since   1.0.0
 	 * @throws  \Exception
 	 */
-	public function getTable($type = 'Eintrag', $prefix = 'Administrator', $config = array())
+	public function getTable($type = 'Item', $prefix = 'Administrator', $config = array())
 	{
 		return parent::getTable($type, $prefix, $config);
 	}
@@ -175,13 +175,13 @@ class EintragModel extends AdminModel
 	protected function loadFormData()
 	{
 		// Check the session for previously entered form data.
-		$data = Factory::getApplication()->getUserState('com_vkmdb.edit.eintrag.data', array());
+		$data = Factory::getApplication()->getUserState('com_vkmdb.edit.item.data', array());
 
 		if (empty($data))
 		{
 			$data = $this->getItem();
 		}
-		$this->preprocessData($this->typeAlias, $data, 'eintrag');
+		$this->preprocessData($this->typeAlias, $data, 'item');
 
 		return $data;
 	}
