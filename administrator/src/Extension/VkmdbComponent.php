@@ -79,7 +79,7 @@ class VkmdbComponent extends MVCComponent implements
 	 */
 	public function validateSection($section, $item = null)
 	{
-		if ($section != 'item')
+		if ($section != 'contact')
 		{
 			// We don't know other sections
 			return null;
@@ -100,7 +100,7 @@ class VkmdbComponent extends MVCComponent implements
 		Factory::getLanguage()->load('com_vkmdb', JPATH_ADMINISTRATOR);
 
 		$contexts = array(
-			'com_vkmdb.item'    => Text::_('COM_VKMDB'),
+			'com_vkmdb.contact'    => Text::_('COM_VKMDB'),
             'com_vkmdb.categories' => Text::_('JCATEGORY')
 		);
 
@@ -119,7 +119,7 @@ class VkmdbComponent extends MVCComponent implements
 	 */
 	protected function getTableNameForSection(string $section = null)
 	{
-		return ($section === 'category' ? 'categories' : 'vkmdb_items');
+		return ($section === 'category' ? 'categories' : 'vkmdb_contacts');
 	}
 
 	/**

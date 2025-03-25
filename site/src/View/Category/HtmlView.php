@@ -37,7 +37,7 @@ class HtmlView extends CategoryView
 	 * @var    string  The name of the view to link individual items to
 	 * @since  1.0.0
 	 */
-	protected $viewName = 'item';
+	protected $viewName = 'contact';
 
 	/**
 	 * Run the standard Joomla plugins
@@ -85,7 +85,7 @@ class HtmlView extends CategoryView
 			$path = [['title' => $this->category->title, 'link' => '']];
 			$category = $this->category->getParent();
 
-			while ((!isset($menu->query['option']) || $menu->query['option'] !== 'com_vkmdb' || $menu->query['view'] === 'item'
+			while ((!isset($menu->query['option']) || $menu->query['option'] !== 'com_vkmdb' || $menu->query['view'] === 'contact'
 				|| $id != $category->id) && $category->id > 1)
 			{
 				$path[] = ['title' => $category->title, 'link' => RouteHelper::getCategoryRoute($category->id, $category->language)];

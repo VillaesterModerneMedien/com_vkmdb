@@ -89,13 +89,13 @@ class Router extends RouterView
 		$category->setKey('id')->setParent($categories, 'catid')->setNestable();
 		$this->registerView($category);
         
-		$item = new RouterViewConfiguration('item');
-		$item->setKey('id')->setParent($category, 'catid');
-		$this->registerView($item);
+		$contact = new RouterViewConfiguration('contact');
+		$contact->setKey('id')->setParent($category, 'catid');
+		$this->registerView($contact);
         
 		$this->registerView(new RouterViewConfiguration('featured'));
         
-		$this->registerView(new RouterViewConfiguration('items'));
+		$this->registerView(new RouterViewConfiguration('contacts'));
 
 		parent::__construct($app, $menu);
 
@@ -105,23 +105,23 @@ class Router extends RouterView
 	}
     
     /**
-	 * Method to get the segment(s) for a item
+	 * Method to get the segment(s) for a contact
 	 *
-	 * @param   string  $id     ID of the item to retrieve the segments for
+	 * @param   string  $id     ID of the contact to retrieve the segments for
 	 * @param   array   $query  The request that is built right now
 	 *
 	 * @return  array|string  The segments of this item
 	 * 
 	 * @since  1.0.0
 	 */
-	public function getItemSegment($id, $query)
+	public function getContactSegment($id, $query)
 	{
 		if (!strpos($id, ':'))
 		{
 			$id = (int) $id;
 			$dbquery = $this->db->getQuery(true);
 			$dbquery->select($this->db->quoteName('alias'))
-				->from($this->db->quoteName('#__vkmdb_items'))
+				->from($this->db->quoteName('#__vkmdb_contacts'))
 				->where($this->db->quoteName('id') . ' = :id')
 				->bind(':id', $id, ParameterType::INTEGER);
 			$this->db->setQuery($dbquery);
@@ -140,22 +140,22 @@ class Router extends RouterView
 	}
     
     /**
-	 * Method to get the segment(s) for a item
+	 * Method to get the segment(s) for a contact
 	 *
-	 * @param   string  $segment  Segment of the item to retrieve the ID for
+	 * @param   string  $segment  Segment of the contact to retrieve the ID for
 	 * @param   array   $query    The request that is parsed right now
 	 *
 	 * @return  mixed   The id of this item or false
 	 * 
 	 * @since  1.0.0
 	 */
-	public function getItemId($segment, $query)
+	public function getContactId($segment, $query)
 	{
 		if ($this->noIDs)
 		{
 			$dbquery = $this->db->getQuery(true);
 			$dbquery->select($this->db->quoteName('id'))
-				->from($this->db->quoteName('#__vkmdb_items'))
+				->from($this->db->quoteName('#__vkmdb_contacts'))
 				->where(
 					[
 						$this->db->quoteName('alias') . ' = :alias',

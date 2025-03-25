@@ -6,31 +6,13 @@
 	<copyright>Copyright (C) 2025 Mario Hewera. All rights reserved.</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<authorEmail>mh@villaester.de</authorEmail>
-	<authorUrl>https://villaester.de</authorUrl>
+	<authorUrl>https://vllaester.de</authorUrl>
 	<version>1.0.0</version>
 	<description>COM_VKMDB_XML_DESCRIPTION</description>
     <namespace path="src">VkmdbNamespace\Component\Vkmdb</namespace>
 	
 	<scriptfile>script.php</scriptfile>
 	
-	<install> <!-- Runs on install -->
-		<sql>
-			<file charset="utf8" driver="mysql">sql/install.mysql.utf8.sql</file>
-		</sql>
-	</install>
-	
-	<uninstall> <!-- Runs on uninstall -->
-		<sql>
-			<file charset="utf8" driver="mysql">sql/uninstall.mysql.utf8.sql</file>
-		</sql>
-	</uninstall>
-	
-	<update> <!-- Runs on update -->
-		<schemas>
-			<schemapath type="mysql">sql/updates/mysql</schemapath>
-		</schemas>
-	</update>
-
 	<media destination="com_vkmdb" folder="media">
 		<filename>index.html</filename>
         <filename>joomla.asset.json</filename>
@@ -49,11 +31,8 @@
 	</files>
 	
 	<languages folder="site/language">
-		
-			<language tag="de-DE">de-DE/com_vkmdb.ini</language>
-		
-			<language tag="en-GB">en-GB/com_vkmdb.ini</language>
-		
+		<language tag="de-DE">de-DE/com_vkmdb.ini</language>
+		<language tag="en-GB">en-GB/com_vkmdb.ini</language>
 	</languages>
  
 	<administration>
@@ -63,11 +42,11 @@
 			</params>
 		</menu>
 		<submenu>
-			<menu view="items">
-                COM_VKMDB_SUBMENU_ITEMS
+			<menu view="contacts">
+                COM_VKMDB_SUBMENU_CONTACTS
                 <params>
-					<menu-quicktask-title>COM_VKMDB_SUBMENU_NEW_ITEM</menu-quicktask-title>
-					<menu-quicktask>index.php?option=com_vkmdb&amp;task=item.add</menu-quicktask>
+					<menu-quicktask-title>COM_VKMDB_SUBMENU_NEW_CONTACT</menu-quicktask-title>
+					<menu-quicktask>index.php?option=com_vkmdb&amp;task=contact.add</menu-quicktask>
 				</params>
             </menu>
             
@@ -75,7 +54,7 @@
 				JCATEGORY
                 <params>
 					<menu-quicktask>index.php?option=com_categories&amp;extension=com_vkmdb&amp;task=category.add</menu-quicktask>
-					<menu-quicktask-title>COM_VKMDB_SUBMENU_ADD_ITEMS_CATEGORY</menu-quicktask-title>
+					<menu-quicktask-title>COM_VKMDB_SUBMENU_ADD_CONTACTS_CATEGORY</menu-quicktask-title>
 				</params>
 			</menu>
 		</submenu>

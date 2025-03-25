@@ -6,7 +6,7 @@ com_vkmdb
 
 Copyright (C) 2025 Mario Hewera. All rights reserved. 
 Mario Hewera
-https://villaester.de
+https://vllaester.de
 
 Diese mit dem formativ.net Extension Builder erstellte Joomla! 4.x Komponente stellt nur ein Grundgerüst für Ihre 
 Komponente dar.

@@ -29,7 +29,7 @@ class Category extends Categories
 	 */
 	public function __construct($options = [])
 	{
-		$options['table']      = '#__vkmdb_items';
+		$options['table']      = '#__vkmdb_contacts';
 		$options['extension']  = 'com_vkmdb';
 		$options['statefield'] = 'published';
 

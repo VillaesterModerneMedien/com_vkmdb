@@ -11,9 +11,9 @@
       "uri": "com_vkmdb/script.js"
     },
     {
-      "name": "com_vkmdb.admin-items-modal",
+      "name": "com_vkmdb.admin-contacts-modal",
       "type": "script",
-      "uri": "com_vkmdb/admin-items-modal.js",
+      "uri": "com_vkmdb/admin-contacts-modal.js",
       "attributes": {
         "type": "module"
       }

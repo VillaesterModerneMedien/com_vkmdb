@@ -60,7 +60,7 @@ $userId  = Factory::getApplication()->getIdentity()->id;
 		
 		<?php if (empty($this->items)) : ?>
 			<p>
-				<?php echo Text::_('COM_VKMDB_NO_ITEMS'); ?>
+				<?php echo Text::_('COM_VKMDB_NO_CONTACTS'); ?>
 			</p>
 		<?php else : ?>
 			<ul class="com-vkmdb-category__list category row-striped">
@@ -70,7 +70,7 @@ $userId  = Factory::getApplication()->getIdentity()->id;
                     <?php else : ?>
                         <li class="row cat-list-row<?php echo $i % 2; ?>" >
                     <?php endif; ?>
-                            <a href="<?php echo Route::_(RouteHelper::getItemRoute($item->slug, $item->catid)); ?>">
+                            <a href="<?php echo Route::_(RouteHelper::getContactRoute($item->slug, $item->catid)); ?>">
 								<?php echo $item->title; ?>
                             </a>
                         </li>
@@ -79,7 +79,7 @@ $userId  = Factory::getApplication()->getIdentity()->id;
 		<?php endif; ?>
 
 			<?php if ($canDo->get('core.create')) : ?>
-				<?php echo HTMLHelper::_('itemicon.create', $this->category, $this->category->params); ?>
+				<?php echo HTMLHelper::_('contacticon.create', $this->category, $this->category->params); ?>
 			<?php endif; ?>
 
 			<?php if ($this->params->get('show_pagination', 2)) : ?>

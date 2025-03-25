@@ -29,7 +29,7 @@ class Dispatcher extends ComponentDispatcher
 	 */
 	public function dispatch()
 	{
-		if ($this->input->get('view') === 'items' && $this->input->get('layout') === 'modal')
+		if ($this->input->get('view') === 'contacts' && $this->input->get('layout') === 'modal')
 		{
 			if (!$this->app->getIdentity()->authorise('core.create', 'com_vkmdb'))
 			{

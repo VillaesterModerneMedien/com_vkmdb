@@ -13,12 +13,12 @@
 		>
 
 		<menuitem
-			title="COM_VKMDB_SUBMENU_ITEMS"
+			title="COM_VKMDB_SUBMENU_CONTACTS"
 			type="component"
 			element="com_vkmdb"
 			link="index.php?option=com_vkmdb"
-			quicktask="index.php?option=com_vkmdb&amp;task=item.add"
-			quicktask-title="COM_VKMDB_SUBMENU_NEW_ITEM"
+			quicktask="index.php?option=com_vkmdb&amp;task=contact.add"
+			quicktask-title="COM_VKMDB_SUBMENU_NEW_CONTACT"
 		/>
 
 		<menuitem

@@ -63,7 +63,7 @@ class Icon
 	{
 		$uri = Uri::getInstance();
 
-		$url = 'index.php?option=com_vkmdb&task=item.add&return=' . base64_encode($uri) . '&id=0&catid=' . $category->id;
+		$url = 'index.php?option=com_vkmdb&task=contact.add&return=' . base64_encode($uri) . '&id=0&catid=' . $category->id;
 
 		$text = LayoutHelper::render('joomla.content.icons.create', array('params' => $params, 'legacy' => false));
 
@@ -79,27 +79,27 @@ class Icon
 
 		$button = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 
-		$output = '<span class="hasTooltip" title="' . HTMLHelper::_('tooltipText', 'COM_VKMDB_CREATE_ITEM') . '">' . $button . '</span>';
+		$output = '<span class="hasTooltip" title="' . HTMLHelper::_('tooltipText', 'COM_VKMDB_CREATE_CONTACT') . '">' . $button . '</span>';
 
 		return $output;
 	}
 
 	/**
-	 * Display an edit icon for the item.
+	 * Display an edit icon for the contact.
 	 *
-	 * This icon will not display in a popup window, nor if the item is trashed.
+	 * This icon will not display in a popup window, nor if the contact is trashed.
 	 * Edit access checks must be performed in the calling code.
 	 *
-	 * @param   object    $item  The item information
+	 * @param   object    $contact  The contact information
 	 * @param   Registry  $params   The item parameters
 	 * @param   array     $attribs  Optional attributes for the link
 	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
 	 *
-	 * @return  string   The HTML for the item edit icon.
+	 * @return  string   The HTML for the contact edit icon.
 	 *
 	 * @since   1.0.0
 	 */
-	public static function edit($item, $params, $attribs = array(), $legacy = false)
+	public static function edit($contact, $params, $attribs = array(), $legacy = false)
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
@@ -111,7 +111,7 @@ class Icon
 		}
 
 		// Ignore if the state is negative (trashed).
-		if ($item->published < 0)
+		if ($contact->published < 0)
 		{
 			return '';
 		}
@@ -119,14 +119,14 @@ class Icon
 		// Set the link class
 		$attribs['class'] = 'dropdown-item';
 
-		// Show checked_out icon if the item is checked out by a different user
-		if (property_exists($item, 'checked_out')
-			&& property_exists($item, 'checked_out_time')
-			&& $item->checked_out > 0
-			&& $item->checked_out != $user->get('id'))
+		// Show checked_out icon if the contact is checked out by a different user
+		if (property_exists($contact, 'checked_out')
+			&& property_exists($contact, 'checked_out_time')
+			&& $contact->checked_out > 0
+			&& $contact->checked_out != $user->get('id'))
 		{
-			$checkoutUser = Factory::getApplication()->getIdentity($item->checked_out);
-			$date         = HTMLHelper::_('date', $item->checked_out_time);
+			$checkoutUser = Factory::getApplication()->getIdentity($contact->checked_out);
+			$date         = HTMLHelper::_('date', $contact->checked_out_time);
 			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_VKMDB_CHECKED_OUT_BY', $checkoutUser->name)
 				. ' <br /> ' . $date;
 
@@ -137,15 +137,15 @@ class Icon
 			return $output;
 		}
 
-		if (!isset($item->slug))
+		if (!isset($contact->slug))
 		{
-			$item->slug = "";
+			$contact->slug = "";
 		}
 
-		$itemUrl = RouteHelper::getItemRoute($item->slug, $item->catid, $item->language);
-		$url        = $itemUrl . '&task=item.edit&id=' . $item->id . '&return=' . base64_encode($uri);
+		$contactUrl = RouteHelper::getContactRoute($contact->slug, $contact->catid, $contact->language);
+		$url        = $contactUrl . '&task=contact.edit&id=' . $contact->id . '&return=' . base64_encode($uri);
 
-		if ($item->published == 0)
+		if ($contact->published == 0)
 		{
 			$overlib = Text::_('JUNPUBLISHED');
 		}
@@ -154,22 +154,22 @@ class Icon
 			$overlib = Text::_('JPUBLISHED');
 		}
 
-		if (!isset($item->created))
+		if (!isset($contact->created))
 		{
 			$date = HTMLHelper::_('date', 'now');
 		}
 		else
 		{
-			$date = HTMLHelper::_('date', $item->created);
+			$date = HTMLHelper::_('date', $contact->created);
 		}
 
-		if (!isset($created_by_alias) && !isset($item->created_by))
+		if (!isset($created_by_alias) && !isset($contact->created_by))
 		{
 			$author = '';
 		}
 		else
 		{
-			$author = $item->created_by_alias ?: Factory::getApplication()->getIdentity($item->created_by)->name;
+			$author = $contact->created_by_alias ?: Factory::getApplication()->getIdentity($contact->created_by)->name;
 		}
 
 		$overlib .= '&lt;br /&gt;';
@@ -177,19 +177,19 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_VKMDB_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 
-		$icon = $item->published ? 'edit' : 'eye-slash';
+		$icon = $contact->published ? 'edit' : 'eye-slash';
 
-		if (strtotime($item->publish_up) > strtotime(Factory::getDate())
-			|| ((strtotime($item->publish_down) < strtotime(Factory::getDate())) && $item->publish_down != Factory::getContainer()->get('DatabaseDriver')->getNullDate()))
+		if (strtotime($contact->publish_up) > strtotime(Factory::getDate())
+			|| ((strtotime($contact->publish_down) < strtotime(Factory::getDate())) && $contact->publish_down != Factory::getContainer()->get('DatabaseDriver')->getNullDate()))
 		{
 			$icon = 'eye-slash';
 		}
 
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
-			. HTMLHelper::tooltipText(Text::_('COM_VKMDB_EDIT_ITEM'), $overlib, 0, 0) . '"></span> ';
+			. HTMLHelper::tooltipText(Text::_('COM_VKMDB_EDIT_CONTACT'), $overlib, 0, 0) . '"></span> ';
 		$text .= Text::_('JGLOBAL_EDIT');
 
-		$attribs['title'] = Text::_('COM_VKMDB_EDIT_ITEM');
+		$attribs['title'] = Text::_('COM_VKMDB_EDIT_CONTACT');
 		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 
 		return $output;

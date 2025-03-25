@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<layout title="COM_VKMDB_CONTACT_VIEW_DEFAULT_TITLE">
+		<message>
+			<![CDATA[COM_VKMDB_CONTACT_VIEW_DEFAULT_DESC]]>
+		</message>
+	</layout>
+
+	<!-- Add fields to the request variables for the layout. -->
+	<fields name="request">
+		<fieldset name="request"
+			addfieldprefix="VkmdbNamespace\Component\Vkmdb\Administrator\Field"
+		>
+			<field
+                name="id"
+                type="sql"
+                default=""
+                label="COM_VKMDB_FIELD_CONTACT_LABEL"
+                query="SELECT id AS value, title AS text FROM #__vkmdb_contacts where published IN (1,2)"
+                value_field="text"
+                required="true"
+            >
+                <option value="">COM_VKMDB_SELECT_AN_CONTACT</option>
+            </field>
+		</fieldset>
+	</fields>
+    
+	<!-- Add fields to the parameters object for the layout. -->
+	<fields name="params">
+		<fieldset name="basic" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+
+		</fieldset>
+	</fields>
+</metadata>
