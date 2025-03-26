@@ -24,6 +24,8 @@ $userId    = $user->get('id');
 
 $listOrder	= $this->escape($this->state->get('list.ordering'));
 $listDirn	= $this->escape($this->state->get('list.direction'));
+
+$items = $this->items;
 ?>
 <form action="<?php echo Route::_('index.php?option=com_vkmdb&view=contacts'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
@@ -54,21 +56,15 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
                                 <th scope="col">
                                     <?php echo HTMLHelper::_('searchtools.sort', Text::_('COM_VKMDB_HEADING_CONTACT_TITLE'), 'a.title', $listDirn, $listOrder); ?>
                                 </th>
-                                <th scope="col" class="w-1 text-center">
-                                    <?php echo HTMLHelper::_('searchtools.sort', Text::_('JSTATUS'), 'a.published', $listDirn, $listOrder); ?>
-                                </th>
                                 <th scope="col" class="w-5 d-none d-md-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($this->items as $i => $item) :
-                            $canCreate  = $user->authorise('core.create',     'com_vkmdb.category.' . $item->catid);
-							$canEdit    = $user->authorise('core.edit',       'com_vkmdb.category.' . $item->catid);
-                            $canEditOwn = $user->authorise('core.edit.own',   'com_vkmdb.category.' . $item->catid) && $item->created_by == $userId;
-							$canChange  = $user->authorise('core.edit.state', 'com_vkmdb.category.' . $item->catid);
- 
+                        <?php foreach ($this->items as $i => $data) :
+                            $item = $data->fields;
+                            $item->id =$data->id;
                         ?>
                             <tr class="row<?php echo $i % 2; ?>">
                                 <td class="center">
@@ -76,31 +72,16 @@ $listDirn	= $this->escape($this->state->get('list.direction'));
                                 </td>
                                 <th scope="row" class="has-context">
                                     <div>
-                                        <?php if ($canEdit) : ?>
+
                                         <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_vkmdb&task=contact.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape($item->title); ?>">
                                             <?php echo $item->title; ?>
                                         </a>
-                                        <?php else : ?>
-                                            <?php echo $this->escape($item->title); ?>
-                                        <?php endif; ?>
-
-                                        <?php if (!empty($item->note)) : ?>
-                                            <div class="small">
-                                                <?php echo Text::sprintf('JGLOBAL_LIST_NOTE', $this->escape($item->note)); ?>
-                                            </div>
-                                        <?php endif; ?>
                                                                         
                                         <div class="small">
                                             <?php echo Text::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
                                         </div>
-                                        <div class="small">
-                                            <?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-                                        </div>
                                     </div>
                                 </th>
-                                <td>
-                                    <?php echo HTMLHelper::_('jgrid.published', $item->published, $i, 'contacts.', $canChange, 'cb'); ?>
-                                </td>
                                 <td class="d-none d-md-table-cell">
                                     <?php echo $item->id; ?>
                                 </td>

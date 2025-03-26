@@ -35,30 +35,26 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
             
             <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', empty($this->item->id) ? Text::_('COM_VKMDB_NEW_CONTACT') : Text::_('COM_VKMDB_EDIT_CONTACT')); ?>
             <div class="row">
-                <div class="col-lg-9">
-                    <?php echo $this->form->renderFieldset('contactfieldset'); ?>
-                </div>
                 <div class="col-lg-3">
-                    <?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
+                    <?php echo $this->form->renderFieldset('contactdetails'); ?>
                 </div>
             </div>
             <?php echo HTMLHelper::_('uitab.endTab'); ?>
-                
-            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('JGLOBAL_FIELDSET_PUBLISHING')); ?>
+            <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'moreInformations', Text::_('COM_VKMDB_MORE_INFORMATIONS')); ?>
             <div class="row">
-                <div class="col-lg-6">
-                    <fieldset id="fieldset-publishingdata" class="options-form">
-                        <legend><?php echo Text::_('JGLOBAL_FIELDSET_PUBLISHING'); ?></legend>
-                        <div>
-                            <?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
-                        </div>
-                    </fieldset>
-                </div>
-                <div class="col-lg-6">
-                    <!-- second col -->
+                <div class="col-lg-3">
+                    <?php echo $this->form->renderFieldset('moreInformations'); ?>
                 </div>
             </div>
             <?php echo HTMLHelper::_('uitab.endTab'); ?>
+	        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'hiddenFields', Text::_('COM_VKMDB_HIDDEN_FIELDS')); ?>
+            <div class="row">
+                <div class="col-lg-3">
+			        <?php echo $this->form->renderFieldset('hiddenFields'); ?>
+                </div>
+            </div>
+	        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+
                 
             <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
         </div>

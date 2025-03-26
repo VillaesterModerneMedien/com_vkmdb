@@ -1,4 +1,4 @@
-warteschlange<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <config>
     <inlinehelp button="show"/>
 	<fieldset
@@ -6,9 +6,40 @@ warteschlange<?xml version="1.0" encoding="utf-8"?>
 		label="COM_VKMDB_CONFIG_SETTINGS_LABEL"
 	>
 		<field name="com_vkmdb_note"
-		type="note" 
-		label="COM_VKMDB_CONFIG_SETTINGS_NOTE"
+			type="note"
+			label="COM_VKMDB_CONFIG_SETTINGS_NOTE"
 		/>
+		<field name="ninox_api_url"
+			   label="COM_VKMDB_CONFIG_API_URL"
+		/>
+		<field name="ninox_api_key"
+			   label="COM_VKMDB_CONFIG_API_KEY"
+		/>
+		<field name="team_id"
+			   label="COM_VKMDB_CONFIG_TEAM_ID"
+	   	/>
+		<field name="database_id"
+			   label="COM_VKMDB_CONFIG_DATABASE_ID"
+	   	/>
+		<field name="table_contacts_id"
+			   label="COM_VKMDB_CONFIG_TABLE_CONTACTS_ID"
+	   	/>
+		<field name="table_contactdata_id"
+			   label="COM_VKMDB_CONFIG_TABLE_CONTACTDATA_ID"
+	   	/>
+		<field name="table_jobs_id"
+			   label="COM_VKMDB_CONFIG_TABLE_JOBS_ID"
+	   	/>
+		<field name="table_relations_id"
+			   label="COM_VKMDB_CONFIG_TABLE_RELATIONS_ID"
+	   	/>
+		<field name="table_roles_id"
+			   label="COM_VKMDB_CONFIG_TABLE_ROLES_ID"
+	   	/>
+		<field name="table_counterroles_id"
+			   label="COM_VKMDB_CONFIG_TABLE_COUNTERROLES_ID"
+	   	/>
+
 	</fieldset>
     
     <fieldset

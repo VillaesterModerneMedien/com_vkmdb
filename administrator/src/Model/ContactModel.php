@@ -10,10 +10,12 @@ namespace VkmdbNamespace\Component\Vkmdb\Administrator\Model;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormFactoryInterface;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\Object\CMSObject;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Helper\TagsHelper;
 use Joomla\CMS\Language\Associations;
@@ -26,6 +28,7 @@ use Joomla\Component\Categories\Administrator\Helper\CategoriesHelper;
 use Joomla\Database\ParameterType;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use VkmdbNamespace\Component\Vkmdb\Administrator\Helper\VkmdbHelper;
 
 /**
  * Item Model for a Contact.
@@ -35,7 +38,7 @@ use Joomla\Utilities\ArrayHelper;
 class ContactModel extends AdminModel
 {
 	use VersionableModelTrait;
-    
+
 	/**
 	 * The type alias for this content type.
 	 *
@@ -49,8 +52,8 @@ class ContactModel extends AdminModel
 	 * @since  1.0.0
 	 */
 	protected $text_prefix = 'COM_VKMDB';
-    
-    /**
+
+	/**
 	 * Name of the form
 	 *
 	 * @var string
@@ -63,7 +66,7 @@ class ContactModel extends AdminModel
 	 * @since  1.0.0
 	 */
 	// protected $helpURL;
-	
+
 	/**
 	 * Constructor.
 	 *
@@ -71,31 +74,14 @@ class ContactModel extends AdminModel
 	 * @param   MVCFactoryInterface   $factory      The factory.
 	 * @param   FormFactoryInterface  $formFactory  The form factory.
 	 *
-	 * @since   1.0.0
 	 * @throws  \Exception
+	 * @since   1.0.0
 	 */
 	public function __construct($config = array(), MVCFactoryInterface $factory = null, FormFactoryInterface $formFactory = null)
 	{
 		parent::__construct($config, $factory, $formFactory);
 	}
-	
-	/**
-	 * Method to get a table object, load it if necessary.
-	 *
-	 * @param   string  $name     The table name. Optional.
-	 * @param   string  $prefix   The class prefix. Optional.
-	 * @param   array   $options  Configuration array for model. Optional.
-	 *
-	 * @return  Table  A Table object
-	 *
-	 * @since   1.0.0
-	 * @throws  \Exception
-	 */
-	public function getTable($type = 'Contact', $prefix = 'Administrator', $config = array())
-	{
-		return parent::getTable($type, $prefix, $config);
-	}
-	
+
 	/**
 	 * Method to get the row form.
 	 *
@@ -109,39 +95,39 @@ class ContactModel extends AdminModel
 	public function getForm($data = [], $loadData = true)
 	{
 		// Get the form.
-        $form = $this->loadForm(
-            'com_vkmdb.' . $this->formName,
-            $this->formName,
-            array(
-                'control' => 'jform',
-                'load_data' => $loadData
-            )
-        );
+		$form = $this->loadForm(
+			'com_vkmdb.' . $this->formName,
+			$this->formName,
+			array(
+				'control'   => 'jform',
+				'load_data' => $loadData
+			)
+		);
 
-        if (empty($form))
-        {
-            return false;
-        }
-        
-        // Modify the form based on access controls.
+		if (empty($form))
+		{
+			return false;
+		}
+
+		// Modify the form based on access controls.
 		if (!$this->canEditState((object) $data))
-        {
-            $form->setFieldAttribute('published', 'disabled', 'true');
-            
-            // Disable fields while saving.
+		{
+			$form->setFieldAttribute('published', 'disabled', 'true');
+
+			// Disable fields while saving.
 			// The controller has already verified this is a record you can edit.
 			$form->setFieldAttribute('published', 'filter', 'unset');
-        }
-        
-        // Don't allow to change the created_by user if not allowed to access com_users.
+		}
+
+		// Don't allow to change the created_by user if not allowed to access com_users.
 		if (!Factory::getApplication()->getIdentity()->authorise('core.manage', 'com_users'))
 		{
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
 
-        return $form;
+		return $form;
 	}
-	
+
 	/**
 	 * Preprocess the form.
 	 *
@@ -155,16 +141,31 @@ class ContactModel extends AdminModel
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'content')
 	{
-    	if ($this->canCreateCategory())
-		{
-			$form->setFieldAttribute('catid', 'allowAdd', 'true');
-
-			// Add a prefix for categories created on the fly.
-			$form->setFieldAttribute('catid', 'customPrefix', '#new#');
-		}
-        parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
-    
+
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param   integer  $pk  The id of the primary key.
+	 *
+	 * @return  \stdClass|false  Object on success, false on failure.
+	 *
+	 * @since   1.6
+	 */
+	public function getItem($pk = null)
+	{
+		$app = Factory::getApplication();
+		$input = $app->input;
+		$id = $input->getInt('id');
+
+		//$item       = ArrayHelper::toObject($properties, CMSObject::class);
+		$data = VkmdbHelper::ninoxApi('contact', 'GET', $id);
+		$item = VkmdbHelper::prepareNinoxData($data);
+
+		return $item;
+	}
+
 	/**
 	 * Method to get the data that should be injected in the form.
 	 *
@@ -185,8 +186,8 @@ class ContactModel extends AdminModel
 
 		return $data;
 	}
-    
-    /**
+
+	/**
 	 * Method to save the form data.
 	 *
 	 * @param   array  $data  The form data.
@@ -197,77 +198,10 @@ class ContactModel extends AdminModel
 	 */
 	public function save($data)
 	{
-        $input = Factory::getApplication()->input;
-        // Create new category, if needed.
-		$createCategory = true;
-
-		// If category ID is provided, check if it's valid.
-		if (is_numeric($data['catid']) && $data['catid'])
-		{
-			$createCategory = !CategoriesHelper::validateCategoryId($data['catid'], 'com_vkmdb');
-		}
-
-		// Save New Category
-		if ($createCategory && $this->canCreateCategory())
-		{
-			$category = [
-				// Remove #new# prefix, if exists.
-				'title'     => strpos($data['catid'], '#new#') === 0 ? substr($data['catid'], 5) : $data['catid'],
-				'parent_id' => 1,
-				'extension' => 'com_vkmdb',
-				'language'  => $data['language'],
-				'published' => 1,
-			];
-
-			/** @var \Joomla\Component\Categories\Administrator\Model\CategoryModel $categoryModel */
-			$categoryModel = Factory::getApplication()->bootComponent('com_categories')
-				->getMVCFactory()->createModel('Category', 'Administrator', ['ignore_request' => true]);
-
-			// Create new category.
-			if (!$categoryModel->save($category))
-			{
-				$this->setError($categoryModel->getError());
-
-				return false;
-			}
-
-			// Get the Category ID.
-			$data['catid'] = $categoryModel->getState('category.id');
-		}
-        return parent::save($data);
-    }
-    
-    /**
-	 * Prepare and sanitise the table prior to saving.
-	 *
-	 * @param   \Joomla\CMS\Table\Table  $table  The Table object
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0.0
-	 */
-	protected function prepareTable($table)
-	{
-		$date = Factory::getDate()->toSql();
-        
-		$table->generateAlias();
-        
-        if (empty($table->id))
-		{
-			// Set the values
-			$table->created = $date;
-        }
-        else
-		{
-			// Set the values
-			$table->modified = $date;
-			$table->modified_by = Factory::getApplication()->getIdentity()->id;
-		}
+		//Helper einbinden mit POST Und den Felder Daten
 	}
-    
-    
-    
-    /**
+
+	/**
 	 * Method to test whether a record can be deleted.
 	 *
 	 * @param   object  $record  A record object.
@@ -282,8 +216,9 @@ class ContactModel extends AdminModel
 		{
 			return false;
 		}
-        return Factory::getApplication()->getIdentity()->authorise('core.delete', 'com_vkmdb.category.' . (int) $record->catid);
- 
+
+		return Factory::getApplication()->getIdentity()->authorise('core.delete', 'com_vkmdb.category.' . (int) $record->catid);
+
 	}
 
 	/**
@@ -300,21 +235,10 @@ class ContactModel extends AdminModel
 		// Check against the category.
 		if (!empty($record->catid))
 		{
-            return Factory::getApplication()->getIdentity()->authorise('core.edit.state', 'com_vkmdb.category.' . (int) $record->catid);
+			return Factory::getApplication()->getIdentity()->authorise('core.edit.state', 'com_vkmdb.category.' . (int) $record->catid);
 		}
 
 		// Default to component settings if category not known.
 		return parent::canEditState($record);
-	}
-    /**
-	 * Is the user allowed to create an on the fly category?
-	 *
-	 * @return  boolean
-	 *
-	 * @since   1.0.0
-	 */
-	private function canCreateCategory()
-	{
-		return Factory::getApplication()->getIdentity()->authorise('core.create', 'com_vkmdb');
 	}
 }
